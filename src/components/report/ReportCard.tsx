@@ -9,9 +9,10 @@ interface ReportCardProps {
   title: string;
   children: ReactNode;
   onTimeRangeChange?: (range: TimeRange) => void;
+  hideTimeFilter?: boolean;
 }
 
-export function ReportCard({ title, children, onTimeRangeChange }: ReportCardProps) {
+export function ReportCard({ title, children, onTimeRangeChange, hideTimeFilter = false }: ReportCardProps) {
   const [selectedRange, setSelectedRange] = useState<TimeRange>("Last 3 months");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,39 +33,41 @@ export function ReportCard({ title, children, onTimeRangeChange }: ReportCardPro
         <h2 className="text-xl font-bold text-white">
           {title}
         </h2>
-        <div className="relative">
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all bg-white text-foreground shadow-md hover:shadow-lg hover:scale-[1.02]"
-          >
-            {selectedRange}
-            <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
-          </button>
-          
-          {isOpen && (
-            <>
-              <div 
-                className="fixed inset-0 z-40" 
-                onClick={() => setIsOpen(false)} 
-              />
-              <div className="absolute right-0 top-full mt-2 z-50 bg-card border border-border rounded-lg shadow-lg min-w-[160px] overflow-hidden">
-                {timeRangeOptions.map((range) => (
-                  <button
-                    key={range}
-                    onClick={() => handleSelect(range)}
-                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-accent ${
-                      selectedRange === range 
-                        ? "bg-accent font-medium text-foreground" 
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {range}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+        {!hideTimeFilter && (
+          <div className="relative">
+            <button 
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all bg-white text-foreground shadow-md hover:shadow-lg hover:scale-[1.02]"
+            >
+              {selectedRange}
+              <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+            </button>
+            
+            {isOpen && (
+              <>
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setIsOpen(false)} 
+                />
+                <div className="absolute right-0 top-full mt-2 z-50 bg-card border border-border rounded-lg shadow-lg min-w-[160px] overflow-hidden">
+                  {timeRangeOptions.map((range) => (
+                    <button
+                      key={range}
+                      onClick={() => handleSelect(range)}
+                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-accent ${
+                        selectedRange === range 
+                          ? "bg-accent font-medium text-foreground" 
+                          : "text-muted-foreground"
+                      }`}
+                    >
+                      {range}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
       </div>
       <div className="p-6">{children}</div>
     </div>

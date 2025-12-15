@@ -16,7 +16,7 @@ const Index = () => {
       {/* Main Content */}
       <main className="container py-8 space-y-6 max-w-4xl">
         {/* Section 1: Let's look at our time together */}
-        <ReportCard title="Let's look at our time together">
+        <ReportCard title="Let's look at our last 3 months together" hideTimeFilter>
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
               This report is designed to understand if we are progressing in the right direction

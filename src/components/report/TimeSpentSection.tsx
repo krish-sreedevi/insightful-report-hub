@@ -8,9 +8,9 @@ const pieData = [
 ];
 
 const classStats = [
-  { label: "15 Classes Used", color: "bg-math text-math-foreground" },
-  { label: "9 Classes Missed", color: "bg-physics text-physics-foreground" },
-  { label: "9 Classes Left", color: "bg-muted text-muted-foreground" },
+  { label: "15 Classes Used", gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
+  { label: "9 Classes Missed", gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
+  { label: "9 Classes Left", gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
 ];
 
 export function TimeSpentSection() {
@@ -25,7 +25,8 @@ export function TimeSpentSection() {
         {classStats.map((stat) => (
           <div 
             key={stat.label}
-            className={`${stat.color} text-sm font-medium px-4 py-2 rounded-lg`}
+            className="text-sm font-medium px-4 py-2 rounded-lg text-white"
+            style={{ background: stat.gradient }}
           >
             {stat.label}
           </div>

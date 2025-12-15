@@ -18,7 +18,7 @@ export function AISparkle({ className = "", size = "md" }: AISparkleProps) {
     <img 
       src={aiSparkleIcon}
       alt="AI Generated"
-      className={`rounded-lg shadow-md ${className}`}
+      className={className}
       style={{ width: dimension, height: dimension }}
     />
   );

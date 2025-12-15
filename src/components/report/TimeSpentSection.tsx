@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { Sparkles } from "lucide-react";
+import { GeminiStar } from "./GeminiStar";
 
 const pieData = [
   { name: "Math", value: 62.5, color: "hsl(var(--math))" },
@@ -59,10 +59,11 @@ export function TimeSpentSection() {
         </div>
         
         {/* Insight Box */}
-        <div className="lg:w-72">
-          <div className="bg-accent/50 rounded-xl p-5 relative">
-            <Sparkles className="absolute -top-3 -right-3 w-8 h-8 text-math/60" />
-            <Sparkles className="absolute top-10 -right-6 w-5 h-5 text-physics/80" />
+        <div className="lg:w-72 relative">
+          <div className="absolute -top-4 -right-4 z-10">
+            <GeminiStar size="lg" />
+          </div>
+          <div className="bg-accent/50 rounded-xl p-5">
             <p className="text-sm text-foreground leading-relaxed">
               We have spent the most amount of time on <span className="text-math font-semibold">Maths</span> (10 Sessions) and the least amount of time on <span className="text-english font-semibold">English</span> (2 sessions)
             </p>

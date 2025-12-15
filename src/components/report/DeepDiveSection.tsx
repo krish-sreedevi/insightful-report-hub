@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Info, Sparkles } from "lucide-react";
+import { Info } from "lucide-react";
+import { GeminiStar } from "./GeminiStar";
 
 type Subject = "Math" | "Physics" | "English";
 
@@ -108,10 +109,12 @@ export function DeepDiveSection() {
 
       {/* Strengths and To Improve */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="border border-border rounded-xl p-5">
-          <h4 className="font-bold text-foreground mb-4 flex items-center gap-2">
+        <div className="border border-border rounded-xl p-5 relative">
+          <div className="absolute -top-3 -right-3 z-10">
+            <GeminiStar size="md" />
+          </div>
+          <h4 className="font-bold text-foreground mb-4">
             Strengths:
-            <Sparkles className="w-4 h-4 text-math" />
           </h4>
           <ul className="space-y-3">
             {strengths.map((item, idx) => (
@@ -137,8 +140,9 @@ export function DeepDiveSection() {
 
       {/* Recommendations */}
       <div className="relative">
-        <Sparkles className="absolute -top-2 right-4 w-6 h-6 text-math/60" />
-        <Sparkles className="absolute top-8 -right-2 w-4 h-4 text-physics/80" />
+        <div className="absolute -top-3 right-4 z-10">
+          <GeminiStar size="md" />
+        </div>
         <div className="border border-border rounded-xl p-5">
           <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
           <ul className="space-y-2">

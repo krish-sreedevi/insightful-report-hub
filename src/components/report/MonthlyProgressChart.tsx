@@ -1,5 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid } from "recharts";
-import { Sparkles } from "lucide-react";
+import { GeminiStar } from "./GeminiStar";
 
 const data = [
   { month: "Jan", Math: 45, Physics: 40, English: 35 },
@@ -50,9 +50,10 @@ export function MonthlyProgressChart({ activeSubject = "All" }: MonthlyProgressC
         </div>
       </div>
       <div className="lg:w-72 relative">
+        <div className="absolute -top-4 -right-4 z-10">
+          <GeminiStar size="lg" />
+        </div>
         <div className="bg-accent/50 rounded-xl p-5 relative">
-          <Sparkles className="absolute -top-3 -right-3 w-8 h-8 text-math/60" />
-          <Sparkles className="absolute top-8 -right-6 w-5 h-5 text-physics/80" />
           <p className="text-sm font-semibold text-foreground mb-2">
             The student's progress has been improving month on month
           </p>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SubjectTabs } from "./SubjectTabs";
-import { Sparkles } from "lucide-react";
+import { GeminiStar } from "./GeminiStar";
 import { Button } from "@/components/ui/button";
 
 type Subject = "All" | "Math" | "Physics" | "English";
@@ -81,12 +81,15 @@ export function TopicScoresSection() {
         </div>
         
         <div className="lg:w-72 space-y-4">
-          <div className="bg-accent/50 rounded-xl p-5 relative">
-            <Sparkles className="absolute -top-3 -right-3 w-8 h-8 text-math/60" />
-            <Sparkles className="absolute top-12 -right-6 w-5 h-5 text-physics/80" />
-            <p className="text-sm text-foreground leading-relaxed">
-              The highest scoring topic and the least scoring topic are both from <span className="text-math font-semibold">Math</span>. <span className="text-physics font-semibold">Physics</span> seems to be strong on the topics that have been completed but <span className="text-math font-semibold">Math</span> is both good and bad.
-            </p>
+          <div className="relative">
+            <div className="absolute -top-4 -right-4 z-10">
+              <GeminiStar size="lg" />
+            </div>
+            <div className="bg-accent/50 rounded-xl p-5">
+              <p className="text-sm text-foreground leading-relaxed">
+                The highest scoring topic and the least scoring topic are both from <span className="text-math font-semibold">Math</span>. <span className="text-physics font-semibold">Physics</span> seems to be strong on the topics that have been completed but <span className="text-math font-semibold">Math</span> is both good and bad.
+              </p>
+            </div>
           </div>
           
           <div className="text-center">

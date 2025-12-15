@@ -21,10 +21,10 @@ const lowestTopics: Topic[] = [
   { rank: 12, name: "<Topic Name>", subject: "Math", score: 21 },
 ];
 
-const subjectColors = {
-  Math: "bg-primary text-primary-foreground",
-  Physics: "bg-secondary text-secondary-foreground",
-  English: "bg-success text-success-foreground",
+const subjectColors: Record<string, string> = {
+  Math: "bg-math text-math-foreground",
+  Physics: "bg-physics text-physics-foreground",
+  English: "bg-english text-english-foreground",
 };
 
 function TopicRow({ topic }: { topic: Topic }) {
@@ -73,10 +73,10 @@ export function TopicScoresSection() {
         
         <div className="lg:w-72 space-y-4">
           <div className="bg-accent/50 rounded-xl p-5 relative">
-            <Sparkles className="absolute -top-3 -right-3 w-8 h-8 text-primary/60" />
-            <Sparkles className="absolute top-12 -right-6 w-5 h-5 text-secondary/80" />
+            <Sparkles className="absolute -top-3 -right-3 w-8 h-8 text-math/60" />
+            <Sparkles className="absolute top-12 -right-6 w-5 h-5 text-physics/80" />
             <p className="text-sm text-foreground leading-relaxed">
-              The highest scoring topic and the least scoring topic are both from Math. Physics seems to be strong on the topics that have been completed but Math is both good and bad.
+              The highest scoring topic and the least scoring topic are both from <span className="text-math font-semibold">Math</span>. <span className="text-physics font-semibold">Physics</span> seems to be strong on the topics that have been completed but <span className="text-math font-semibold">Math</span> is both good and bad.
             </p>
           </div>
           
@@ -84,7 +84,7 @@ export function TopicScoresSection() {
             <p className="text-sm text-muted-foreground mb-3">
               Schedule a session now to improve the lower scoring topics:
             </p>
-            <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold px-6">
+            <Button className="bg-gradient-to-r from-math to-math/80 hover:from-math/90 hover:to-math/70 text-math-foreground font-semibold px-6">
               Schedule Now!
             </Button>
           </div>

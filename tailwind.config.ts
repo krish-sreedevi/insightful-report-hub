@@ -64,6 +64,18 @@ export default {
           gray: "hsl(var(--chart-gray))",
           teal: "hsl(var(--chart-teal))",
         },
+        math: {
+          DEFAULT: "hsl(var(--math))",
+          foreground: "hsl(var(--math-foreground))",
+        },
+        physics: {
+          DEFAULT: "hsl(var(--physics))",
+          foreground: "hsl(var(--physics-foreground))",
+        },
+        english: {
+          DEFAULT: "hsl(var(--english))",
+          foreground: "hsl(var(--english-foreground))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

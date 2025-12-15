@@ -1,12 +1,29 @@
 import { useState } from "react";
 import { Info, Sparkles } from "lucide-react";
 
-const subjects = ["Math", "Physics", "English"];
+type Subject = "Math" | "Physics" | "English";
+
+const subjects: Subject[] = ["Math", "Physics", "English"];
+
+const subjectStyles: Record<Subject, { active: string; inactive: string }> = {
+  Math: {
+    active: "bg-math text-math-foreground",
+    inactive: "bg-math/10 text-math hover:bg-math/20",
+  },
+  Physics: {
+    active: "bg-physics text-physics-foreground",
+    inactive: "bg-physics/10 text-physics-foreground hover:bg-physics/20",
+  },
+  English: {
+    active: "bg-english text-english-foreground",
+    inactive: "bg-english/10 text-english hover:bg-english/20",
+  },
+};
 
 const progressBars = [
-  { label: "15/17 Classes Attended", value: 88, color: "bg-primary" },
-  { label: "78% (7.8 GPA/B+)", value: 78, color: "bg-secondary" },
-  { label: "9/12 Topics Covered", value: 75, color: "bg-success" },
+  { label: "15/17 Classes Attended", value: 88, color: "bg-math" },
+  { label: "78% (7.8 GPA/B+)", value: 78, color: "bg-physics" },
+  { label: "9/12 Topics Covered", value: 75, color: "bg-english" },
 ];
 
 const strengths = [
@@ -31,7 +48,7 @@ const recommendations = [
 ];
 
 export function DeepDiveSection() {
-  const [activeSubject, setActiveSubject] = useState("Math");
+  const [activeSubject, setActiveSubject] = useState<Subject>("Math");
 
   return (
     <div className="space-y-6">
@@ -46,7 +63,9 @@ export function DeepDiveSection() {
             key={subject}
             onClick={() => setActiveSubject(subject)}
             className={`tab-pill ${
-              activeSubject === subject ? "tab-pill-active" : "tab-pill-inactive"
+              activeSubject === subject 
+                ? subjectStyles[subject].active 
+                : subjectStyles[subject].inactive
             }`}
           >
             {subject}
@@ -77,12 +96,12 @@ export function DeepDiveSection() {
         <div className="border border-border rounded-xl p-5">
           <h4 className="font-bold text-foreground mb-4 flex items-center gap-2">
             Strengths:
-            <Sparkles className="w-4 h-4 text-primary" />
+            <Sparkles className="w-4 h-4 text-math" />
           </h4>
           <ul className="space-y-3">
             {strengths.map((item, idx) => (
               <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                <span className="text-foreground">•</span>
+                <span className="text-math">•</span>
                 {item}
               </li>
             ))}
@@ -93,7 +112,7 @@ export function DeepDiveSection() {
           <ul className="space-y-3">
             {improvements.map((item, idx) => (
               <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                <span className="text-foreground">•</span>
+                <span className="text-physics">•</span>
                 {item}
               </li>
             ))}
@@ -103,14 +122,14 @@ export function DeepDiveSection() {
 
       {/* Recommendations */}
       <div className="relative">
-        <Sparkles className="absolute -top-2 right-4 w-6 h-6 text-primary/60" />
-        <Sparkles className="absolute top-8 -right-2 w-4 h-4 text-secondary/80" />
+        <Sparkles className="absolute -top-2 right-4 w-6 h-6 text-math/60" />
+        <Sparkles className="absolute top-8 -right-2 w-4 h-4 text-physics/80" />
         <div className="border border-border rounded-xl p-5">
           <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
           <ul className="space-y-2">
             {recommendations.map((item, idx) => (
               <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                <span className="text-primary font-bold">•</span>
+                <span className="text-math font-bold">•</span>
                 {item}
               </li>
             ))}

@@ -36,10 +36,18 @@
 
     --radius: 1rem;
 
-    /* Custom colors */
+    /* Subject colors */
+    --math: 263 70% 55%;
+    --math-foreground: 0 0% 100%;
+    --physics: 45 100% 55%;
+    --physics-foreground: 240 10% 20%;
+    --english: 142 70% 45%;
+    --english-foreground: 0 0% 100%;
+    
+    /* Chart colors (mapped to subjects) */
     --chart-purple: 263 70% 55%;
-    --chart-yellow: 45 100% 60%;
-    --chart-gray: 240 5% 75%;
+    --chart-yellow: 45 100% 55%;
+    --chart-gray: 142 70% 45%;
     --chart-teal: 180 60% 45%;
     
     --success: 142 70% 45%;

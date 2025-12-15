@@ -24,7 +24,7 @@ const subjectStyles: Record<Subject, { active: string; inactive: string }> = {
   },
   Physics: {
     active: "bg-physics text-physics-foreground",
-    inactive: "bg-physics/10 text-physics-foreground hover:bg-physics/20",
+    inactive: "bg-physics/10 text-physics hover:bg-physics/20",
   },
   English: {
     active: "bg-english text-english-foreground",

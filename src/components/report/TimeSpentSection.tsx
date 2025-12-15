@@ -7,10 +7,11 @@ const pieData = [
   { name: "English", value: 12.5, color: "hsl(var(--english))" },
 ];
 
+const totalClasses = 33;
 const classStats = [
-  { label: "15 Classes Used", value: 45, gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
-  { label: "9 Classes Missed", value: 27, gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
-  { label: "9 Classes Left", value: 27, gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
+  { label: "15/33 Classes Used", value: (15 / totalClasses) * 100, gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
+  { label: "9/33 Classes Missed", value: (9 / totalClasses) * 100, gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
+  { label: "9/33 Classes Left", value: (9 / totalClasses) * 100, gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
 ];
 
 export function TimeSpentSection() {

@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { Info } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { AIIndicator } from "./AIIndicator";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 type Subject = "Math" | "Physics" | "English";
 
@@ -25,17 +30,57 @@ const progressBars = [
   { 
     label: "15/17 Classes Attended", 
     value: 88, 
-    gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" 
+    gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)",
+    tooltip: {
+      content: (
+        <div className="space-y-3">
+          <p className="text-sm">
+            <span className="font-semibold">Classes Attended=</span> Where tutor and students where able to spend time together
+          </p>
+          <p className="text-sm">
+            <span className="font-semibold">Total Number of Class=</span> Classes that have been scheduled
+          </p>
+        </div>
+      )
+    }
   },
   { 
     label: "78% (7.8 GPA/B+)", 
     value: 78, 
-    gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" 
+    gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)",
+    tooltip: {
+      content: (
+        <div className="space-y-2">
+          <p className="font-semibold text-sm">Grade Score Table:</p>
+          <div className="text-sm space-y-1">
+            <p>9.1 - 10 → A+</p>
+            <p>8.1 - 9 → A</p>
+            <p>7.1 - 8 → B+</p>
+            <p>6.1 - 7 → B</p>
+            <p>5.1 - 6 → C</p>
+            <p>4.1 - 5 → D</p>
+          </div>
+        </div>
+      )
+    }
   },
   { 
     label: "9/12 Topics Covered", 
     value: 75, 
-    gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" 
+    gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)",
+    tooltip: {
+      content: (
+        <div className="space-y-2">
+          <p className="font-semibold text-sm">Topics Covered:</p>
+          <ul className="text-sm space-y-1">
+            <li>• Parallel and transversal lines (mathematical concepts)</li>
+            <li>• Angle examination and calculations</li>
+            <li>• Amplitude and period in trigonometric functions</li>
+            <li>• Graphing of trigonometric functions</li>
+          </ul>
+        </div>
+      )
+    }
   },
 ];
 
@@ -92,7 +137,16 @@ export function DeepDiveSection() {
           <div key={idx} className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-foreground">{bar.label}</span>
-              <Info className="w-4 h-4 text-muted-foreground" />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="hover:opacity-70 transition-opacity">
+                    <Info className="w-4 h-4 text-muted-foreground" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-72 bg-card border border-border shadow-lg" align="end">
+                  {bar.tooltip.content}
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
               <div 

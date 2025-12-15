@@ -23,16 +23,19 @@ export function ReportCard({ title, children, onTimeRangeChange }: ReportCardPro
 
   return (
     <div className="bg-card rounded-2xl card-shadow overflow-hidden animate-fade-in">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-        <h2 
-          className="text-xl font-bold bg-gradient-to-r from-[hsl(263,70%,55%)] via-[hsl(220,90%,55%)] to-[hsl(180,70%,45%)] bg-clip-text text-transparent"
-        >
+      <div 
+        className="flex items-center justify-between px-6 py-4"
+        style={{
+          background: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(220 90% 55%) 50%, hsl(180 70% 45%) 100%)"
+        }}
+      >
+        <h2 className="text-xl font-bold text-white">
           {title}
         </h2>
         <div className="relative">
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors bg-muted text-muted-foreground hover:bg-accent"
+            className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors bg-white/20 text-white hover:bg-white/30"
           >
             {selectedRange}
             <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />

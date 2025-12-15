@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SubjectTabs } from "./SubjectTabs";
-import { GeminiStar } from "./GeminiStar";
+import { AIIndicator } from "./AIIndicator";
 import { Button } from "@/components/ui/button";
 
 type Subject = "All" | "Math" | "Physics" | "English";
@@ -82,8 +82,8 @@ export function TopicScoresSection() {
         
         <div className="lg:w-72 space-y-4">
           <div className="relative">
-            <div className="absolute -top-4 -right-4 z-10">
-              <GeminiStar size="lg" />
+            <div className="absolute -top-3 -right-3 z-10">
+              <AIIndicator size="lg" />
             </div>
             <div className="bg-accent/50 rounded-xl p-5">
               <p className="text-sm text-foreground leading-relaxed">

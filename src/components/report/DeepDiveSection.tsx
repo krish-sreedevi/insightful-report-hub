@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Info } from "lucide-react";
-import { GeminiStar } from "./GeminiStar";
+import { AIIndicator } from "./AIIndicator";
 
 type Subject = "Math" | "Physics" | "English";
 
@@ -111,7 +111,7 @@ export function DeepDiveSection() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="border border-border rounded-xl p-5 relative">
           <div className="absolute -top-3 -right-3 z-10">
-            <GeminiStar size="md" />
+            <AIIndicator size="md" />
           </div>
           <h4 className="font-bold text-foreground mb-4">
             Strengths:
@@ -141,7 +141,7 @@ export function DeepDiveSection() {
       {/* Recommendations */}
       <div className="relative">
         <div className="absolute -top-3 right-4 z-10">
-          <GeminiStar size="md" />
+          <AIIndicator size="md" />
         </div>
         <div className="border border-border rounded-xl p-5">
           <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>

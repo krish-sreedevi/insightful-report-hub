@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Info } from "lucide-react";
+import { AISparkle } from "./AISparkle";
 import {
   Popover,
   PopoverContent,
@@ -162,7 +163,10 @@ export function DeepDiveSection() {
 
       {/* Strengths and To Improve */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="border border-border rounded-xl p-5">
+        <div className="border border-border rounded-xl p-5 relative">
+          <div className="absolute -top-3 -right-3 z-10">
+            <AISparkle size="sm" />
+          </div>
           <h4 className="font-bold text-foreground mb-4">
             Strengths:
           </h4>
@@ -175,7 +179,10 @@ export function DeepDiveSection() {
             ))}
           </ul>
         </div>
-        <div className="border border-border rounded-xl p-5">
+        <div className="border border-border rounded-xl p-5 relative">
+          <div className="absolute -top-3 -right-3 z-10">
+            <AISparkle size="sm" />
+          </div>
           <h4 className="font-bold text-foreground mb-4">To Improve:</h4>
           <ul className="space-y-3">
             {improvements.map((item, idx) => (
@@ -189,7 +196,10 @@ export function DeepDiveSection() {
       </div>
 
       {/* Recommendations */}
-      <div className="border border-border rounded-xl p-5">
+      <div className="border border-border rounded-xl p-5 relative">
+        <div className="absolute -top-3 -right-3 z-10">
+          <AISparkle size="sm" />
+        </div>
         <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
         <ul className="space-y-2">
           {recommendations.map((item, idx) => (

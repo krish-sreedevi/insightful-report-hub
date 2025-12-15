@@ -141,7 +141,7 @@ export function DeepDiveSection() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {progressBars.map((bar, idx) => (
           <div key={idx} className="space-y-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
               <span className="text-sm font-medium text-foreground">{bar.label}</span>
               <Popover>
                 <PopoverTrigger asChild>

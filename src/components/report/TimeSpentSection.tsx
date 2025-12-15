@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { GeminiStar } from "./GeminiStar";
+import { AIIndicator } from "./AIIndicator";
 
 const pieData = [
   { name: "Math", value: 62.5, color: "hsl(var(--math))" },
@@ -60,8 +60,8 @@ export function TimeSpentSection() {
         
         {/* Insight Box */}
         <div className="lg:w-72 relative">
-          <div className="absolute -top-4 -right-4 z-10">
-            <GeminiStar size="lg" />
+          <div className="absolute -top-3 -right-3 z-10">
+            <AIIndicator size="lg" />
           </div>
           <div className="bg-accent/50 rounded-xl p-5">
             <p className="text-sm text-foreground leading-relaxed">

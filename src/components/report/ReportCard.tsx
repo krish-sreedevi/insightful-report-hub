@@ -24,7 +24,11 @@ export function ReportCard({ title, children, onTimeRangeChange }: ReportCardPro
   return (
     <div className="bg-card rounded-2xl card-shadow overflow-hidden animate-fade-in">
       <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-        <h2 className="text-xl font-bold text-foreground">{title}</h2>
+        <h2 
+          className="text-xl font-bold bg-gradient-to-r from-[hsl(263,70%,55%)] via-[hsl(220,90%,55%)] to-[hsl(180,70%,45%)] bg-clip-text text-transparent"
+        >
+          {title}
+        </h2>
         <div className="relative">
           <button 
             onClick={() => setIsOpen(!isOpen)}

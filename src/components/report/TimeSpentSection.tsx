@@ -25,7 +25,7 @@ export function TimeSpentSection() {
         {classStats.map((stat) => (
           <div 
             key={stat.label}
-            className="text-sm font-medium px-4 py-2 rounded-lg text-white"
+            className="text-sm font-bold px-4 py-2 rounded-lg text-white"
             style={{ background: stat.gradient }}
           >
             {stat.label}

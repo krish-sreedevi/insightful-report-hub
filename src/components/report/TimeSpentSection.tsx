@@ -8,9 +8,9 @@ const pieData = [
 ];
 
 const classStats = [
-  { label: "15 Classes Used", gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
-  { label: "9 Classes Missed", gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
-  { label: "9 Classes Left", gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
+  { label: "15 Classes Used", value: 45, gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
+  { label: "9 Classes Missed", value: 27, gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
+  { label: "9 Classes Left", value: 27, gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
 ];
 
 export function TimeSpentSection() {
@@ -20,15 +20,20 @@ export function TimeSpentSection() {
         Here we can see the utilization of the sessions available
       </p>
       
-      {/* Class Stats Pills */}
-      <div className="flex gap-2 flex-wrap">
+      {/* Class Stats Progress Bars */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {classStats.map((stat) => (
-          <div 
-            key={stat.label}
-            className="text-sm font-bold px-4 py-2 rounded-lg text-white"
-            style={{ background: stat.gradient }}
-          >
-            {stat.label}
+          <div key={stat.label} className="space-y-2">
+            <span className="text-sm font-bold text-foreground">{stat.label}</span>
+            <div className="h-3 bg-muted rounded-full overflow-hidden">
+              <div 
+                className="h-full rounded-full transition-all duration-500"
+                style={{ 
+                  width: `${stat.value}%`,
+                  background: stat.gradient
+                }}
+              />
+            </div>
           </div>
         ))}
       </div>

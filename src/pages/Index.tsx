@@ -27,12 +27,12 @@ const Index = () => {
         </ReportCard>
 
         {/* Section 3: How are we spending time together */}
-        <ReportCard title="How are we spending time together" variant="dark">
+        <ReportCard title="How are we spending time together">
           <TimeSpentSection />
         </ReportCard>
 
         {/* Section 4: Deep Dive! */}
-        <ReportCard title="Deep Dive!" variant="dark">
+        <ReportCard title="Deep Dive!">
           <DeepDiveSection />
         </ReportCard>
 

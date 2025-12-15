@@ -7,7 +7,15 @@ const data = [
   { month: "March", Math: 85, Physics: 72, English: 68 },
 ];
 
-export function MonthlyProgressChart() {
+interface MonthlyProgressChartProps {
+  activeSubject?: "All" | "Math" | "Physics" | "English";
+}
+
+export function MonthlyProgressChart({ activeSubject = "All" }: MonthlyProgressChartProps) {
+  const showMath = activeSubject === "All" || activeSubject === "Math";
+  const showPhysics = activeSubject === "All" || activeSubject === "Physics";
+  const showEnglish = activeSubject === "All" || activeSubject === "English";
+
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       <div className="flex-1">
@@ -28,9 +36,15 @@ export function MonthlyProgressChart() {
                 domain={[0, 100]}
                 ticks={[0, 20, 40, 60, 80, 100]}
               />
-              <Bar dataKey="Math" fill="hsl(var(--math))" radius={[4, 4, 0, 0]} barSize={24} />
-              <Bar dataKey="Physics" fill="hsl(var(--physics))" radius={[4, 4, 0, 0]} barSize={24} />
-              <Bar dataKey="English" fill="hsl(var(--english))" radius={[4, 4, 0, 0]} barSize={24} />
+              {showMath && (
+                <Bar dataKey="Math" fill="hsl(var(--math))" radius={[4, 4, 0, 0]} barSize={24} />
+              )}
+              {showPhysics && (
+                <Bar dataKey="Physics" fill="hsl(var(--physics))" radius={[4, 4, 0, 0]} barSize={24} />
+              )}
+              {showEnglish && (
+                <Bar dataKey="English" fill="hsl(var(--english))" radius={[4, 4, 0, 0]} barSize={24} />
+              )}
             </BarChart>
           </ResponsiveContainer>
         </div>

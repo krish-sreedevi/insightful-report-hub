@@ -21,9 +21,21 @@ const subjectStyles: Record<Subject, { active: string; inactive: string }> = {
 };
 
 const progressBars = [
-  { label: "15/17 Classes Attended", value: 88, color: "bg-math" },
-  { label: "78% (7.8 GPA/B+)", value: 78, color: "bg-physics" },
-  { label: "9/12 Topics Covered", value: 75, color: "bg-english" },
+  { 
+    label: "15/17 Classes Attended", 
+    value: 88, 
+    gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" 
+  },
+  { 
+    label: "78% (7.8 GPA/B+)", 
+    value: 78, 
+    gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" 
+  },
+  { 
+    label: "9/12 Topics Covered", 
+    value: 75, 
+    gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" 
+  },
 ];
 
 const strengths = [
@@ -73,7 +85,7 @@ export function DeepDiveSection() {
         ))}
       </div>
 
-      {/* Progress Bars */}
+      {/* Progress Bars with AI Gradient */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {progressBars.map((bar, idx) => (
           <div key={idx} className="space-y-2">
@@ -83,8 +95,11 @@ export function DeepDiveSection() {
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
               <div 
-                className={`h-full ${bar.color} rounded-full transition-all duration-500`}
-                style={{ width: `${bar.value}%` }}
+                className="h-full rounded-full transition-all duration-500"
+                style={{ 
+                  width: `${bar.value}%`,
+                  background: bar.gradient
+                }}
               />
             </div>
           </div>

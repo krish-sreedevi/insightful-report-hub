@@ -24,20 +24,6 @@ export function TimeSpentSection() {
       
       {/* Stacked Progress Bar */}
       <div className="space-y-3">
-        <div className="h-4 bg-muted rounded-full overflow-hidden flex">
-          {classStats.map((stat, idx) => (
-            <div 
-              key={stat.label}
-              className="h-full transition-all duration-500"
-              style={{ 
-                width: `${(stat.count / totalClasses) * 100}%`,
-                background: stat.gradient,
-                borderRadius: idx === 0 ? '9999px 0 0 9999px' : idx === classStats.length - 1 ? '0 9999px 9999px 0' : '0'
-              }}
-            />
-          ))}
-        </div>
-        
         {/* Legend */}
         <div className="flex gap-4 flex-wrap">
           {classStats.map((stat) => (
@@ -50,6 +36,20 @@ export function TimeSpentSection() {
                 {stat.count} {stat.label}
               </span>
             </div>
+          ))}
+        </div>
+        
+        <div className="h-4 bg-muted rounded-full overflow-hidden flex">
+          {classStats.map((stat, idx) => (
+            <div 
+              key={stat.label}
+              className="h-full transition-all duration-500"
+              style={{ 
+                width: `${(stat.count / totalClasses) * 100}%`,
+                background: stat.gradient,
+                borderRadius: idx === 0 ? '9999px 0 0 9999px' : idx === classStats.length - 1 ? '0 9999px 9999px 0' : '0'
+              }}
+            />
           ))}
         </div>
       </div>

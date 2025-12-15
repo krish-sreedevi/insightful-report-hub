@@ -1,5 +1,4 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { AIIndicator } from "./AIIndicator";
 
 const pieData = [
   { name: "Math", value: 62.5, color: "hsl(var(--math))" },
@@ -59,10 +58,7 @@ export function TimeSpentSection() {
         </div>
         
         {/* Insight Box */}
-        <div className="lg:w-72 relative">
-          <div className="absolute -top-3 -right-3 z-10">
-            <AIIndicator size="lg" />
-          </div>
+        <div className="lg:w-72">
           <div className="bg-accent/50 rounded-xl p-5">
             <p className="text-sm text-foreground leading-relaxed">
               We have spent the most amount of time on <span className="text-math font-semibold">Maths</span> (10 Sessions) and the least amount of time on <span className="text-english font-semibold">English</span> (2 sessions)

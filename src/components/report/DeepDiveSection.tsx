@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Info, X } from "lucide-react";
-import { AIIndicator } from "./AIIndicator";
+import { Info } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -190,21 +189,16 @@ export function DeepDiveSection() {
       </div>
 
       {/* Recommendations */}
-      <div className="relative">
-        <div className="absolute -top-3 right-4 z-10">
-          <AIIndicator size="md" />
-        </div>
-        <div className="border border-border rounded-xl p-5">
-          <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
-          <ul className="space-y-2">
-            {recommendations.map((item, idx) => (
-              <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                <span className="text-math font-bold">•</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="border border-border rounded-xl p-5">
+        <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
+        <ul className="space-y-2">
+          {recommendations.map((item, idx) => (
+            <li key={idx} className="text-sm text-muted-foreground flex gap-2">
+              <span className="text-math font-bold">•</span>
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

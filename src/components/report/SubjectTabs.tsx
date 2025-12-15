@@ -4,6 +4,13 @@ type Subject = "All" | "Math" | "Physics" | "English";
 
 const subjects: Subject[] = ["All", "Math", "Physics", "English"];
 
+const subjectLabels: Record<Subject, string> = {
+  All: "All 82%",
+  Math: "Math 80%",
+  Physics: "Physics 87%",
+  English: "English 74%",
+};
+
 const subjectStyles: Record<Subject, { active: string; inactive: string }> = {
   All: {
     active: "bg-foreground text-background",
@@ -49,7 +56,7 @@ export function SubjectTabs({ activeTab: controlledTab, onTabChange }: SubjectTa
               : subjectStyles[subject].inactive
           }`}
         >
-          {subject}
+          {subjectLabels[subject]}
         </button>
       ))}
     </div>

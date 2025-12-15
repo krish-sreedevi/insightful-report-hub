@@ -163,10 +163,7 @@ export function DeepDiveSection() {
 
       {/* Strengths and To Improve */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="border border-border rounded-xl p-5 relative">
-          <div className="absolute -top-3 -right-3 z-10">
-            <AIIndicator size="md" />
-          </div>
+        <div className="border border-border rounded-xl p-5">
           <h4 className="font-bold text-foreground mb-4">
             Strengths:
           </h4>

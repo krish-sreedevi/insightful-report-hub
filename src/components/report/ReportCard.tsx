@@ -35,7 +35,7 @@ export function ReportCard({ title, children, onTimeRangeChange }: ReportCardPro
         <div className="relative">
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors bg-white/20 text-white hover:bg-white/30"
+            className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all bg-white text-primary shadow-md hover:shadow-lg hover:scale-[1.02]"
           >
             {selectedRange}
             <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />

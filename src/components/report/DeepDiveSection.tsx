@@ -11,6 +11,12 @@ type Subject = "Math" | "Physics" | "English";
 
 const subjects: Subject[] = ["Math", "Physics", "English"];
 
+const subjectLabels: Record<Subject, string> = {
+  Math: "Math 80%",
+  Physics: "Physics 87%",
+  English: "English 74%",
+};
+
 const subjectStyles: Record<Subject, { active: string; inactive: string }> = {
   Math: {
     active: "bg-math text-math-foreground",
@@ -126,7 +132,7 @@ export function DeepDiveSection() {
                 : subjectStyles[subject].inactive
             }`}
           >
-            {subject}
+            {subjectLabels[subject]}
           </button>
         ))}
       </div>

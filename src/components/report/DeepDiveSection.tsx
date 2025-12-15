@@ -1,153 +1,120 @@
-import { SubjectTabs } from "./SubjectTabs";
+import { useState } from "react";
+import { Info, Sparkles } from "lucide-react";
 
-interface SkillInfo {
-  name: string;
-  sessions: string;
-  questions: string;
-}
+const subjects = ["Math", "Physics", "English"];
 
-const skillCategories = [
-  { 
-    label: "MCQ Classes Attender", 
-    active: true,
-    skills: [
-      { name: "Silence (Average Intervention)", sessions: "100 <40 min", questions: "300 <100 min" },
-      { name: "Silence (Average score when fully alert)", sessions: "100 <40 min", questions: "500 <200 min" },
-      { name: "Wall: Number of class Classes she has taken based on", sessions: "30 <5 min", questions: "" },
-    ]
-  },
-  { 
-    label: "MCQ Class Enquiry", 
-    active: false,
-    skills: []
-  },
-  { 
-    label: "Full Practice Content", 
-    active: false,
-    skills: []
-  },
+const progressBars = [
+  { label: "15/17 Classes Attended", value: 88, color: "bg-primary" },
+  { label: "78% (7.8 GPA/B+)", value: 78, color: "bg-secondary" },
+  { label: "9/12 Topics Covered", value: 75, color: "bg-success" },
 ];
 
 const strengths = [
-  "Demonstrates a strong aptitude for problem-solving, often excelling in complex scenarios.",
-  "Displays persistence in mastering new subjects and skills.",
-  "Collaborates effectively with peers, contributing positively to group activities.",
-  "Shows genuine interest in exploring new topics.",
-  "Produces neat, well organized written work.",
-  "Provides exceptional attention to detail in math and science/social science subjects.",
+  "Demonstrates strong conceptual understanding when topics are explained thoroughly",
+  "Actively participates in sessions and asks pertinent clarifying questions",
+  "Shows good problem-solving abilities once concepts are grasped",
+  "Performs well with guided practice and structured support",
 ];
 
 const improvements = [
-  "Demonstrates a strong aptitude for problem-solving, often excelling in complex scenarios.",
-  "Display persistence in mastering new subjects, patience can help improve understanding.",
-  "Collaborate effectively with peers, particularly with group activities.",
-  "Show genuine interest, work at a fraction of time.",
-  "Produce neat, well organized written work.",
-  "Provide exceptional attention to detail and science/social science subjects.",
+  "Demonstrates strong conceptual understanding when topics are explained thoroughly",
+  "Actively participates in sessions and asks pertinent clarifying questions",
+  "Shows good problem-solving abilities once concepts are grasped",
+  "Performs well with guided practice and structured support",
+];
+
+const recommendations = [
+  "Create formula reference sheets and practice daily memorization exercises",
+  "Increase independent practice problems after each concept introduction",
+  "Focus on real-world application problems to bridge theory-practice gap",
+  "Schedule regular review sessions for previously covered topics to ensure retention",
 ];
 
 export function DeepDiveSection() {
+  const [activeSubject, setActiveSubject] = useState("Math");
+
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <p className="text-sm text-muted-foreground">
-          Add your skills & mastery, the subject you enjoy of the first best current topics in question.
-        </p>
-        <SubjectTabs />
-      </div>
+      <p className="text-sm text-muted-foreground">
+        A deeper look at each subject and the analysis of the feedback from our expert tutors!
+      </p>
 
-      {/* Category Tabs */}
+      {/* Subject Tabs */}
       <div className="flex gap-2 flex-wrap">
-        {skillCategories.map((cat) => (
+        {subjects.map((subject) => (
           <button
-            key={cat.label}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              cat.active 
-                ? "bg-foreground text-background" 
-                : "bg-muted text-muted-foreground hover:bg-accent"
+            key={subject}
+            onClick={() => setActiveSubject(subject)}
+            className={`tab-pill ${
+              activeSubject === subject ? "tab-pill-active" : "tab-pill-inactive"
             }`}
           >
-            {cat.label}
+            {subject}
           </button>
         ))}
       </div>
 
-      {/* Skills Table */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left py-2 font-semibold text-muted-foreground">Skill/Concept Name</th>
-                <th className="text-left py-2 font-semibold text-muted-foreground">Work/Sessions Time</th>
-                <th className="text-left py-2 font-semibold text-muted-foreground">Home Tutored</th>
-              </tr>
-            </thead>
-            <tbody>
-              {skillCategories[0].skills.map((skill, idx) => (
-                <tr key={idx} className="border-b border-border/50">
-                  <td className="py-2.5 text-foreground">{skill.name}</td>
-                  <td className="py-2.5 text-muted-foreground">{skill.sessions}</td>
-                  <td className="py-2.5 text-muted-foreground">{skill.questions}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="text-xs text-muted-foreground mt-3">
-            - Shares good problem solving skills across practical and science subjects.
-          </p>
+      {/* Progress Bars */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {progressBars.map((bar, idx) => (
+          <div key={idx} className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-foreground">{bar.label}</span>
+              <Info className="w-4 h-4 text-muted-foreground" />
+            </div>
+            <div className="h-3 bg-muted rounded-full overflow-hidden">
+              <div 
+                className={`h-full ${bar.color} rounded-full transition-all duration-500`}
+                style={{ width: `${bar.value}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Strengths and To Improve */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="border border-border rounded-xl p-5">
+          <h4 className="font-bold text-foreground mb-4 flex items-center gap-2">
+            Strengths:
+            <Sparkles className="w-4 h-4 text-primary" />
+          </h4>
+          <ul className="space-y-3">
+            {strengths.map((item, idx) => (
+              <li key={idx} className="text-sm text-muted-foreground flex gap-2">
+                <span className="text-foreground">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left py-2 font-semibold text-muted-foreground">Skill/Concept Name</th>
-                <th className="text-left py-2 font-semibold text-muted-foreground">Work/Sessions Time</th>
-                <th className="text-left py-2 font-semibold text-muted-foreground">Syllabus</th>
-              </tr>
-            </thead>
-            <tbody>
-              {skillCategories[0].skills.map((skill, idx) => (
-                <tr key={idx} className="border-b border-border/50">
-                  <td className="py-2.5 text-foreground">{skill.name}</td>
-                  <td className="py-2.5 text-muted-foreground">{skill.sessions}</td>
-                  <td className="py-2.5 text-muted-foreground">{skill.questions}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="text-xs text-muted-foreground mt-3">
-            - Shares good problem solving skills across practical and science subjects.
-          </p>
+        <div className="border border-border rounded-xl p-5">
+          <h4 className="font-bold text-foreground mb-4">To Improve:</h4>
+          <ul className="space-y-3">
+            {improvements.map((item, idx) => (
+              <li key={idx} className="text-sm text-muted-foreground flex gap-2">
+                <span className="text-foreground">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
       {/* Recommendations */}
-      <div className="mt-8">
-        <h3 className="text-lg font-bold text-foreground mb-4">Recommendations</h3>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-accent/30 rounded-lg p-5">
-            <h4 className="font-semibold text-foreground mb-3">Strengths</h4>
-            <ul className="space-y-2">
-              {strengths.map((item, idx) => (
-                <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                  <span className="text-primary font-bold">•</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-accent/30 rounded-lg p-5">
-            <h4 className="font-semibold text-foreground mb-3">To improve</h4>
-            <ul className="space-y-2">
-              {improvements.map((item, idx) => (
-                <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                  <span className="text-secondary font-bold">•</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="relative">
+        <Sparkles className="absolute -top-2 right-4 w-6 h-6 text-primary/60" />
+        <Sparkles className="absolute top-8 -right-2 w-4 h-4 text-secondary/80" />
+        <div className="border border-border rounded-xl p-5">
+          <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
+          <ul className="space-y-2">
+            {recommendations.map((item, idx) => (
+              <li key={idx} className="text-sm text-muted-foreground flex gap-2">
+                <span className="text-primary font-bold">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

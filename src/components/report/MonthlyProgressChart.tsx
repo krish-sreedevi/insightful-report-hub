@@ -1,5 +1,4 @@
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid } from "recharts";
-import { AIIndicator } from "./AIIndicator";
 
 const data = [
   { month: "Jan", Math: 45, Physics: 40, English: 35 },
@@ -49,11 +48,8 @@ export function MonthlyProgressChart({ activeSubject = "All" }: MonthlyProgressC
           </ResponsiveContainer>
         </div>
       </div>
-      <div className="lg:w-72 relative">
-        <div className="absolute -top-3 -right-3 z-10">
-          <AIIndicator size="lg" />
-        </div>
-        <div className="bg-accent/50 rounded-xl p-5 relative">
+      <div className="lg:w-72">
+        <div className="bg-accent/50 rounded-xl p-5">
           <p className="text-sm font-semibold text-foreground mb-2">
             The student's progress has been improving month on month
           </p>

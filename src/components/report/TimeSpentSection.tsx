@@ -7,12 +7,13 @@ const pieData = [
   { name: "English", value: 12.5, color: "hsl(var(--english))" },
 ];
 
-const totalClasses = 33;
 const classStats = [
-  { label: "15/33 Classes Used", value: (15 / totalClasses) * 100, gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
-  { label: "9/33 Classes Missed", value: (9 / totalClasses) * 100, gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
-  { label: "9/33 Classes Left", value: (9 / totalClasses) * 100, gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
+  { label: "Classes Used", count: 15, gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
+  { label: "Classes Missed", count: 9, gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
+  { label: "Classes Left", count: 9, gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
 ];
+
+const totalClasses = classStats.reduce((sum, stat) => sum + stat.count, 0);
 
 export function TimeSpentSection() {
   return (
@@ -21,22 +22,36 @@ export function TimeSpentSection() {
         Here we can see the utilization of the sessions available
       </p>
       
-      {/* Class Stats Progress Bars */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {classStats.map((stat) => (
-          <div key={stat.label} className="space-y-2">
-            <span className="text-sm font-bold text-foreground">{stat.label}</span>
-            <div className="h-3 bg-muted rounded-full overflow-hidden">
+      {/* Stacked Progress Bar */}
+      <div className="space-y-3">
+        <div className="h-4 bg-muted rounded-full overflow-hidden flex">
+          {classStats.map((stat, idx) => (
+            <div 
+              key={stat.label}
+              className="h-full transition-all duration-500"
+              style={{ 
+                width: `${(stat.count / totalClasses) * 100}%`,
+                background: stat.gradient,
+                borderRadius: idx === 0 ? '9999px 0 0 9999px' : idx === classStats.length - 1 ? '0 9999px 9999px 0' : '0'
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Legend */}
+        <div className="flex gap-4 flex-wrap">
+          {classStats.map((stat) => (
+            <div key={stat.label} className="flex items-center gap-2">
               <div 
-                className="h-full rounded-full transition-all duration-500"
-                style={{ 
-                  width: `${stat.value}%`,
-                  background: stat.gradient
-                }}
+                className="w-3 h-3 rounded-full"
+                style={{ background: stat.gradient }}
               />
+              <span className="text-sm font-bold text-foreground">
+                {stat.count} {stat.label}
+              </span>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       
       <div className="flex flex-col lg:flex-row gap-6 mt-4">

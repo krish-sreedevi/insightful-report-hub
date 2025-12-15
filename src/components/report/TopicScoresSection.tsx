@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { SubjectTabs } from "./SubjectTabs";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+type Subject = "All" | "Math" | "Physics" | "English";
 
 interface Topic {
   rank: number;
@@ -27,13 +30,15 @@ const subjectColors: Record<string, string> = {
   English: "bg-english text-english-foreground",
 };
 
-function TopicRow({ topic }: { topic: Topic }) {
+function TopicRow({ topic, overrideSubject }: { topic: Topic; overrideSubject?: "Math" | "Physics" | "English" }) {
+  const displaySubject = overrideSubject || topic.subject;
+  
   return (
     <div className="flex items-center gap-3 py-2">
       <span className="text-sm text-muted-foreground w-6">#{topic.rank}</span>
       <span className="text-sm text-foreground flex-1">{topic.name}</span>
-      <span className={`text-xs px-2 py-1 rounded-full font-medium ${subjectColors[topic.subject]}`}>
-        {topic.subject}
+      <span className={`text-xs px-2 py-1 rounded-full font-medium ${subjectColors[displaySubject]}`}>
+        {displaySubject}
       </span>
       <span className="text-sm font-semibold text-foreground w-12 text-right">{topic.score}%</span>
     </div>
@@ -41,12 +46,16 @@ function TopicRow({ topic }: { topic: Topic }) {
 }
 
 export function TopicScoresSection() {
+  const [activeSubject, setActiveSubject] = useState<Subject>("All");
+  
+  const overrideSubject = activeSubject === "All" ? undefined : activeSubject;
+
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
         We will know where we are doing well and where we need to spend more time on
       </p>
-      <SubjectTabs />
+      <SubjectTabs activeTab={activeSubject} onTabChange={setActiveSubject} />
       
       <div className="flex flex-col lg:flex-row gap-6 mt-4">
         <div className="flex-1 space-y-4">
@@ -55,7 +64,7 @@ export function TopicScoresSection() {
             <h4 className="text-sm font-semibold text-foreground underline mb-2">3 Highest Scoring Topics:</h4>
             <div className="space-y-1">
               {highestTopics.map((topic) => (
-                <TopicRow key={topic.rank} topic={topic} />
+                <TopicRow key={topic.rank} topic={topic} overrideSubject={overrideSubject} />
               ))}
             </div>
           </div>
@@ -65,7 +74,7 @@ export function TopicScoresSection() {
             <h4 className="text-sm font-semibold text-foreground underline mb-2">3 Lowest Scoring Topics:</h4>
             <div className="space-y-1">
               {lowestTopics.map((topic) => (
-                <TopicRow key={topic.rank} topic={topic} />
+                <TopicRow key={topic.rank} topic={topic} overrideSubject={overrideSubject} />
               ))}
             </div>
           </div>

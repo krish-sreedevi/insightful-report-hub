@@ -1,16 +1,10 @@
-import { useState } from "react";
 import { ReportCard } from "@/components/report/ReportCard";
-import { SubjectTabs } from "@/components/report/SubjectTabs";
 import { MonthlyProgressChart } from "@/components/report/MonthlyProgressChart";
 import { TopicScoresSection } from "@/components/report/TopicScoresSection";
 import { TimeSpentSection } from "@/components/report/TimeSpentSection";
 import { DeepDiveSection } from "@/components/report/DeepDiveSection";
 
-type Subject = "All" | "Math" | "Physics" | "English";
-
 const Index = () => {
-  const [progressSubject, setProgressSubject] = useState<Subject>("All");
-
   return (
     <div className="min-h-screen bg-background">
       {/* Main Content */}
@@ -21,8 +15,7 @@ const Index = () => {
             <p className="text-sm text-muted-foreground">
               This report is designed to understand if we are progressing in the right direction
             </p>
-            <SubjectTabs activeTab={progressSubject} onTabChange={setProgressSubject} />
-            <MonthlyProgressChart activeSubject={progressSubject} />
+            <MonthlyProgressChart />
           </div>
         </ReportCard>
 

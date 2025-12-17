@@ -331,7 +331,7 @@ export function DeepDiveSection() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="border border-border rounded-xl p-5 relative">
           <div className="absolute -top-3 -right-3 z-10">
-            <AISparkle size="sm" />
+            <AISparkle size="sm" triggerKey={activeSubject} />
           </div>
           <h4 className="font-bold text-foreground mb-4">
             Strengths:
@@ -347,7 +347,7 @@ export function DeepDiveSection() {
         </div>
         <div className="border border-border rounded-xl p-5 relative">
           <div className="absolute -top-3 -right-3 z-10">
-            <AISparkle size="sm" />
+            <AISparkle size="sm" triggerKey={activeSubject} />
           </div>
           <h4 className="font-bold text-foreground mb-4">To Improve:</h4>
           <ul className="space-y-3">
@@ -364,7 +364,7 @@ export function DeepDiveSection() {
       {/* Recommendations */}
       <div className="border border-border rounded-xl p-5 relative">
         <div className="absolute -top-3 -right-3 z-10">
-          <AISparkle size="sm" />
+          <AISparkle size="sm" triggerKey={activeSubject} />
         </div>
         <h4 className="font-bold text-foreground mb-4">Recommendations:</h4>
         <ul className="space-y-2">

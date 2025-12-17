@@ -132,7 +132,7 @@ export function MonthlyProgressChart({ activeSubject = "All" }: MonthlyProgressC
       </div>
       <div className="lg:w-72 relative">
         <div className="absolute -top-3 -right-3 z-10">
-          <AISparkle size="md" />
+          <AISparkle size="md" triggerKey={activeSubject} />
         </div>
         <div className="bg-accent/50 rounded-xl p-5">
           {getInsight()}

@@ -102,7 +102,7 @@ export function TopicScoresSection() {
             </div>
             <div className="bg-accent/50 rounded-xl p-5">
               <p className="text-sm text-foreground leading-relaxed">
-                The highest scoring topic and the least scoring topic are both from <span className="text-math font-semibold">Math</span>. <span className="text-physics font-semibold">Physics</span> seems to be strong on the topics that have been completed but <span className="text-math font-semibold">Math</span> is both good and bad.
+                You excel in <span className="text-math font-semibold">Quadratic Equations</span> and <span className="text-physics font-semibold">Newton's Laws</span>, but <span className="text-english font-semibold">Grammar & Syntax</span> needs more attention. Focus on the lower-scoring topics to achieve a balanced performance across all subjects.
               </p>
             </div>
           </div>

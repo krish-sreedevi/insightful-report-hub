@@ -109,7 +109,7 @@ export function TopicScoresSection() {
           
           <div className="text-center">
             <p className="text-sm text-muted-foreground mb-3">
-              Schedule a session to improve the lower scoring topics.
+              Tip: Schedule a session to improve your performance on the lower-scoring topics.
             </p>
             <Button className="bg-gradient-to-r from-math to-math/80 hover:from-math/90 hover:to-math/70 text-math-foreground font-semibold px-6">
               Schedule Now!

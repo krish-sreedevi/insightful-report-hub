@@ -136,7 +136,7 @@ export function TimeSpentSection() {
           
           <div className="text-center">
             <p className="text-sm text-muted-foreground mb-3">
-              You have used 15 classes over 1 month and have only 9 remaining. Let's make sure that your learning is uninterrupted.
+              Tip: You have used 15 classes over 1 month and have only 9 remaining. Let's ensure that your learning remains uninterrupted.
             </p>
             <Button className="bg-gradient-to-r from-math to-math/80 hover:from-math/90 hover:to-math/70 text-math-foreground font-semibold px-6">
               Buy Now!

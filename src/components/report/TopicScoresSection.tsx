@@ -149,7 +149,7 @@ export function TopicScoresSection() {
         <div className="lg:w-72 space-y-4">
           <div className="relative">
             <div className="absolute -top-3 -right-3 z-10">
-              <AISparkle size="md" />
+              <AISparkle size="md" triggerKey={activeSubject} />
             </div>
             <div className="bg-accent/50 rounded-xl p-5">
               <p className="text-sm text-foreground leading-relaxed">

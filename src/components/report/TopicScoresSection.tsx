@@ -111,7 +111,7 @@ export function TopicScoresSection() {
             <p className="text-sm text-muted-foreground mb-3">
               Tip: Schedule a session to improve your performance on the lower-scoring topics.
             </p>
-            <Button className="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 text-white font-semibold px-6">
+            <Button className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 text-white font-semibold px-6">
               Schedule Now!
             </Button>
           </div>

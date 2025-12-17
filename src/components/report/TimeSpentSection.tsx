@@ -82,10 +82,29 @@ export function TimeSpentSection() {
                   cx="50%"
                   cy="50%"
                   innerRadius={0}
-                  outerRadius={100}
+                  outerRadius={80}
                   paddingAngle={2}
                   dataKey="value"
-                  labelLine={false}
+                  label={({ name, value, cx, cy, midAngle, outerRadius }) => {
+                    const RADIAN = Math.PI / 180;
+                    const radius = outerRadius + 25;
+                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    const entry = pieData.find(d => d.name === name);
+                    return (
+                      <text
+                        x={x}
+                        y={y}
+                        fill={entry?.color || "hsl(var(--foreground))"}
+                        textAnchor={x > cx ? "start" : "end"}
+                        dominantBaseline="central"
+                        className="text-xs font-semibold"
+                      >
+                        {name} {value}%
+                      </text>
+                    );
+                  }}
+                  labelLine={{ stroke: "hsl(var(--muted-foreground))", strokeWidth: 1 }}
                 >
                   {pieData.map((entry, index) => (
                     <Cell 
@@ -97,20 +116,6 @@ export function TimeSpentSection() {
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
-          </div>
-          {/* Pie Chart Legend - always colored */}
-          <div className="flex justify-center gap-6 mt-2">
-            {pieData.map((entry) => (
-              <div key={entry.name} className="flex items-center gap-2">
-                <div 
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: entry.color }}
-                />
-                <span className="text-sm font-medium text-foreground">
-                  {entry.name} {entry.value}%
-                </span>
-              </div>
-            ))}
           </div>
         </div>
         

@@ -138,7 +138,7 @@ export function TimeSpentSection() {
             <p className="text-sm text-muted-foreground mb-3">
               Tip: You have used 15 classes over 1 month and have only 9 remaining. Let's ensure that your learning remains uninterrupted.
             </p>
-            <Button className="bg-gradient-to-r from-math to-math/80 hover:from-math/90 hover:to-math/70 text-math-foreground font-semibold px-6">
+            <Button className="bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 hover:from-purple-600 hover:via-fuchsia-600 hover:to-pink-600 text-white font-semibold px-6">
               Buy Now!
             </Button>
           </div>

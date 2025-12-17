@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { AISparkle } from "./AISparkle";
+import { SubjectTabs } from "./SubjectTabs";
+
+type Subject = "All" | "Math" | "Physics" | "English";
 
 const pieData = [
   { name: "Math", value: 62.5, color: "hsl(var(--math))" },
@@ -16,11 +20,24 @@ const classStats = [
 const totalClasses = classStats.reduce((sum, stat) => sum + stat.count, 0);
 
 export function TimeSpentSection() {
+  const [activeSubject, setActiveSubject] = useState<Subject>("All");
+
+  const getSliceColor = (name: string) => {
+    if (activeSubject === "All") {
+      return pieData.find(d => d.name === name)?.color || "hsl(var(--muted))";
+    }
+    return name === activeSubject 
+      ? pieData.find(d => d.name === name)?.color 
+      : "hsl(var(--muted))";
+  };
+
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
         Here we can see the utilization of the sessions available
       </p>
+
+      <SubjectTabs activeTab={activeSubject} onTabChange={setActiveSubject} />
       
       {/* Stacked Progress Bar */}
       <div className="space-y-3">
@@ -72,7 +89,11 @@ export function TimeSpentSection() {
                   labelLine={true}
                 >
                   {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={getSliceColor(entry.name)} 
+                      style={{ transition: "fill 0.3s ease" }}
+                    />
                   ))}
                 </Pie>
               </PieChart>

@@ -85,8 +85,7 @@ export function TimeSpentSection() {
                   outerRadius={100}
                   paddingAngle={2}
                   dataKey="value"
-                  label={({ name, value }) => `${name}\n${value}%`}
-                  labelLine={true}
+                  labelLine={false}
                 >
                   {pieData.map((entry, index) => (
                     <Cell 
@@ -98,6 +97,20 @@ export function TimeSpentSection() {
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
+          </div>
+          {/* Pie Chart Legend - always colored */}
+          <div className="flex justify-center gap-6 mt-2">
+            {pieData.map((entry) => (
+              <div key={entry.name} className="flex items-center gap-2">
+                <div 
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: entry.color }}
+                />
+                <span className="text-sm font-medium text-foreground">
+                  {entry.name} {entry.value}%
+                </span>
+              </div>
+            ))}
           </div>
         </div>
         

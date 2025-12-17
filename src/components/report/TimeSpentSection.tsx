@@ -3,30 +3,57 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { AISparkle } from "./AISparkle";
 import { SubjectTabs } from "./SubjectTabs";
 import { Button } from "@/components/ui/button";
+import { TimeRange } from "./ReportCard";
 
 type Subject = "All" | "Math" | "Physics" | "English";
 
-const pieData = [
-  { name: "Math", value: 62.5, sessions: 10, color: "hsl(var(--math))" },
-  { name: "Physics", value: 25, sessions: 4, color: "hsl(var(--physics))" },
-  { name: "English", value: 12.5, sessions: 2, color: "hsl(var(--english))" },
-];
+const pieDataByTimeRange: Record<TimeRange, { name: string; value: number; sessions: number; color: string }[]> = {
+  "Last 3 months": [
+    { name: "Math", value: 62.5, sessions: 10, color: "hsl(var(--math))" },
+    { name: "Physics", value: 25, sessions: 4, color: "hsl(var(--physics))" },
+    { name: "English", value: 12.5, sessions: 2, color: "hsl(var(--english))" },
+  ],
+  "Last 1 month": [
+    { name: "Math", value: 50, sessions: 4, color: "hsl(var(--math))" },
+    { name: "Physics", value: 33, sessions: 2, color: "hsl(var(--physics))" },
+    { name: "English", value: 17, sessions: 1, color: "hsl(var(--english))" },
+  ],
+  "Last 1 week": [
+    { name: "Math", value: 40, sessions: 2, color: "hsl(var(--math))" },
+    { name: "Physics", value: 40, sessions: 2, color: "hsl(var(--physics))" },
+    { name: "English", value: 20, sessions: 1, color: "hsl(var(--english))" },
+  ],
+};
 
-// Subject-specific class data (matching DeepDiveSection attendance)
-const subjectClassData: Record<string, { used: number; missed: number }> = {
-  Math: { used: 15, missed: 2 },      // 15/17 from DeepDive
-  Physics: { used: 12, missed: 2 },   // 12/14 from DeepDive
-  English: { used: 10, missed: 2 },   // 10/12 from DeepDive
+// Subject-specific class data by time range
+const subjectClassDataByTimeRange: Record<TimeRange, Record<string, { used: number; missed: number }>> = {
+  "Last 3 months": {
+    Math: { used: 15, missed: 2 },
+    Physics: { used: 12, missed: 2 },
+    English: { used: 10, missed: 2 },
+  },
+  "Last 1 month": {
+    Math: { used: 5, missed: 1 },
+    Physics: { used: 4, missed: 1 },
+    English: { used: 3, missed: 0 },
+  },
+  "Last 1 week": {
+    Math: { used: 2, missed: 0 },
+    Physics: { used: 2, missed: 1 },
+    English: { used: 1, missed: 0 },
+  },
 };
 
 const classesLeft = 9; // Constant across all subjects
 
-const getClassStats = (subject: Subject) => {
+const getClassStats = (subject: Subject, timeRange: TimeRange) => {
   const gradients = {
     used: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)",
     missed: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)",
     left: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)",
   };
+
+  const subjectClassData = subjectClassDataByTimeRange[timeRange];
 
   if (subject === "All") {
     const totalUsed = Object.values(subjectClassData).reduce((sum, d) => sum + d.used, 0);
@@ -46,16 +73,20 @@ const getClassStats = (subject: Subject) => {
   ];
 };
 
-const totalSessions = pieData.reduce((sum, d) => sum + d.sessions, 0);
+interface TimeSpentSectionProps {
+  timeRange?: TimeRange;
+}
 
-export function TimeSpentSection() {
+export function TimeSpentSection({ timeRange = "Last 3 months" }: TimeSpentSectionProps) {
   const [activeSubject, setActiveSubject] = useState<Subject>("All");
 
-  const classStats = getClassStats(activeSubject);
+  const pieData = pieDataByTimeRange[timeRange];
+  const classStats = getClassStats(activeSubject, timeRange);
   const totalClasses = classStats.reduce((sum, stat) => sum + stat.count, 0);
   const usedClasses = classStats[0].count;
   const missedClasses = classStats[1].count;
-  const utilizationRate = Math.round((usedClasses / (usedClasses + missedClasses)) * 100);
+  const utilizationRate = Math.round((usedClasses / (usedClasses + missedClasses + 0.001)) * 100);
+  const totalSessions = pieData.reduce((sum, d) => sum + d.sessions, 0);
 
   const getSliceColor = (name: string) => {
     if (activeSubject === "All") {

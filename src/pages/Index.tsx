@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ReportCard } from "@/components/report/ReportCard";
+import { ReportCard, TimeRange } from "@/components/report/ReportCard";
 import { SubjectTabs } from "@/components/report/SubjectTabs";
 import { MonthlyProgressChart } from "@/components/report/MonthlyProgressChart";
 import { TopicScoresSection } from "@/components/report/TopicScoresSection";
@@ -10,6 +10,9 @@ type Subject = "All" | "Math" | "Physics" | "English";
 
 const Index = () => {
   const [progressSubject, setProgressSubject] = useState<Subject>("All");
+  const [topicTimeRange, setTopicTimeRange] = useState<TimeRange>("Last 3 months");
+  const [timeSpentRange, setTimeSpentRange] = useState<TimeRange>("Last 3 months");
+  const [deepDiveRange, setDeepDiveRange] = useState<TimeRange>("Last 3 months");
 
   return (
     <div className="min-h-screen bg-background">
@@ -27,18 +30,18 @@ const Index = () => {
         </ReportCard>
 
         {/* Section 2: How are we doing? */}
-        <ReportCard title="How are we doing?">
-          <TopicScoresSection />
+        <ReportCard title="How are we doing?" onTimeRangeChange={setTopicTimeRange}>
+          <TopicScoresSection timeRange={topicTimeRange} />
         </ReportCard>
 
         {/* Section 3: How are we spending time together */}
-        <ReportCard title="How are we spending time together?">
-          <TimeSpentSection />
+        <ReportCard title="How are we spending time together?" onTimeRangeChange={setTimeSpentRange}>
+          <TimeSpentSection timeRange={timeSpentRange} />
         </ReportCard>
 
         {/* Section 4: Deep Dive! */}
-        <ReportCard title="Deep Dive!">
-          <DeepDiveSection />
+        <ReportCard title="Deep Dive!" onTimeRangeChange={setDeepDiveRange}>
+          <DeepDiveSection timeRange={deepDiveRange} />
         </ReportCard>
 
         {/* Footer Note */}

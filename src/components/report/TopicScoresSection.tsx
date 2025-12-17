@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SubjectTabs } from "./SubjectTabs";
 import { AISparkle } from "./AISparkle";
 import { Button } from "@/components/ui/button";
+import { TimeRange } from "./ReportCard";
 
 type Subject = "All" | "Math" | "Physics" | "English";
 
@@ -12,22 +13,50 @@ interface Topic {
   score: number;
 }
 
-const allTopics: Topic[] = [
-  // High scoring topics
-  { rank: 1, name: "Quadratic Equations", subject: "Math", score: 92 },
-  { rank: 2, name: "Newton's Laws of Motion", subject: "Physics", score: 90 },
-  { rank: 3, name: "Linear Algebra", subject: "Math", score: 88 },
-  { rank: 4, name: "Shakespeare Analysis", subject: "English", score: 87 },
-  { rank: 5, name: "Thermodynamics", subject: "Physics", score: 85 },
-  { rank: 6, name: "Essay Writing", subject: "English", score: 82 },
-  // Low scoring topics
-  { rank: 7, name: "Wave Mechanics", subject: "Physics", score: 45 },
-  { rank: 8, name: "Poetry Interpretation", subject: "English", score: 38 },
-  { rank: 9, name: "Calculus Integration", subject: "Math", score: 32 },
-  { rank: 10, name: "Trigonometry", subject: "Math", score: 28 },
-  { rank: 11, name: "Electromagnetic Fields", subject: "Physics", score: 25 },
-  { rank: 12, name: "Grammar & Syntax", subject: "English", score: 22 },
-];
+const topicsByTimeRange: Record<TimeRange, Topic[]> = {
+  "Last 3 months": [
+    { rank: 1, name: "Quadratic Equations", subject: "Math", score: 92 },
+    { rank: 2, name: "Newton's Laws of Motion", subject: "Physics", score: 90 },
+    { rank: 3, name: "Linear Algebra", subject: "Math", score: 88 },
+    { rank: 4, name: "Shakespeare Analysis", subject: "English", score: 87 },
+    { rank: 5, name: "Thermodynamics", subject: "Physics", score: 85 },
+    { rank: 6, name: "Essay Writing", subject: "English", score: 82 },
+    { rank: 7, name: "Wave Mechanics", subject: "Physics", score: 45 },
+    { rank: 8, name: "Poetry Interpretation", subject: "English", score: 38 },
+    { rank: 9, name: "Calculus Integration", subject: "Math", score: 32 },
+    { rank: 10, name: "Trigonometry", subject: "Math", score: 28 },
+    { rank: 11, name: "Electromagnetic Fields", subject: "Physics", score: 25 },
+    { rank: 12, name: "Grammar & Syntax", subject: "English", score: 22 },
+  ],
+  "Last 1 month": [
+    { rank: 1, name: "Linear Algebra", subject: "Math", score: 88 },
+    { rank: 2, name: "Thermodynamics", subject: "Physics", score: 82 },
+    { rank: 3, name: "Essay Writing", subject: "English", score: 79 },
+    { rank: 4, name: "Quadratic Equations", subject: "Math", score: 75 },
+    { rank: 5, name: "Newton's Laws of Motion", subject: "Physics", score: 72 },
+    { rank: 6, name: "Shakespeare Analysis", subject: "English", score: 68 },
+    { rank: 7, name: "Wave Mechanics", subject: "Physics", score: 42 },
+    { rank: 8, name: "Calculus Integration", subject: "Math", score: 35 },
+    { rank: 9, name: "Poetry Interpretation", subject: "English", score: 30 },
+    { rank: 10, name: "Trigonometry", subject: "Math", score: 25 },
+    { rank: 11, name: "Grammar & Syntax", subject: "English", score: 20 },
+    { rank: 12, name: "Electromagnetic Fields", subject: "Physics", score: 18 },
+  ],
+  "Last 1 week": [
+    { rank: 1, name: "Essay Writing", subject: "English", score: 85 },
+    { rank: 2, name: "Thermodynamics", subject: "Physics", score: 78 },
+    { rank: 3, name: "Quadratic Equations", subject: "Math", score: 72 },
+    { rank: 4, name: "Newton's Laws of Motion", subject: "Physics", score: 65 },
+    { rank: 5, name: "Linear Algebra", subject: "Math", score: 60 },
+    { rank: 6, name: "Shakespeare Analysis", subject: "English", score: 55 },
+    { rank: 7, name: "Calculus Integration", subject: "Math", score: 40 },
+    { rank: 8, name: "Wave Mechanics", subject: "Physics", score: 35 },
+    { rank: 9, name: "Poetry Interpretation", subject: "English", score: 28 },
+    { rank: 10, name: "Grammar & Syntax", subject: "English", score: 22 },
+    { rank: 11, name: "Trigonometry", subject: "Math", score: 18 },
+    { rank: 12, name: "Electromagnetic Fields", subject: "Physics", score: 15 },
+  ],
+};
 
 const subjectColors: Record<string, string> = {
   Math: "bg-math text-math-foreground",
@@ -54,9 +83,14 @@ const subjectTextColors: Record<string, string> = {
   English: "text-english",
 };
 
-export function TopicScoresSection() {
+interface TopicScoresSectionProps {
+  timeRange?: TimeRange;
+}
+
+export function TopicScoresSection({ timeRange = "Last 3 months" }: TopicScoresSectionProps) {
   const [activeSubject, setActiveSubject] = useState<Subject>("All");
   
+  const allTopics = topicsByTimeRange[timeRange];
   const filteredTopics = activeSubject === "All" 
     ? allTopics 
     : allTopics.filter(t => t.subject === activeSubject);

@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-type TimeRange = "Last 1 week" | "Last 1 month" | "Last 3 months";
+export type TimeRange = "Last 1 week" | "Last 1 month" | "Last 3 months";
 
 const timeRangeOptions: TimeRange[] = ["Last 1 week", "Last 1 month", "Last 3 months"];
 

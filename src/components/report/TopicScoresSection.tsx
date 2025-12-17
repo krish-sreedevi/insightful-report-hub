@@ -48,6 +48,12 @@ function TopicRow({ topic, index }: { topic: Topic; index: number }) {
   );
 }
 
+const subjectTextColors: Record<string, string> = {
+  Math: "text-math",
+  Physics: "text-physics",
+  English: "text-english",
+};
+
 export function TopicScoresSection() {
   const [activeSubject, setActiveSubject] = useState<Subject>("All");
   
@@ -58,6 +64,51 @@ export function TopicScoresSection() {
   const sortedByScore = [...filteredTopics].sort((a, b) => b.score - a.score);
   const highestTopics = sortedByScore.slice(0, 3);
   const lowestTopics = sortedByScore.slice(-3).reverse();
+
+  const getInsight = () => {
+    const highest = highestTopics[0];
+    const lowest = lowestTopics[lowestTopics.length - 1];
+    const avgScore = Math.round(filteredTopics.reduce((sum, t) => sum + t.score, 0) / filteredTopics.length);
+    const scoreGap = highest.score - lowest.score;
+
+    if (activeSubject === "All") {
+      return (
+        <>
+          Your strongest topic is <span className={`${subjectTextColors[highest.subject]} font-semibold`}>{highest.name}</span> ({highest.score}%), 
+          while <span className={`${subjectTextColors[lowest.subject]} font-semibold`}>{lowest.name}</span> ({lowest.score}%) needs the most attention. 
+          With a {scoreGap}% gap between your best and weakest areas, focusing on the lower-scoring topics could significantly boost your overall performance.
+        </>
+      );
+    }
+
+    if (activeSubject === "Math") {
+      return (
+        <>
+          In <span className="text-math font-semibold">Math</span>, you're excelling at <span className="text-math font-semibold">{highest.name}</span> ({highest.score}%), 
+          but <span className="text-math font-semibold">{lowest.name}</span> ({lowest.score}%) is pulling your average down. 
+          Your Math average is {avgScore}%. Consider dedicating extra practice to foundational concepts in {lowest.name}.
+        </>
+      );
+    }
+
+    if (activeSubject === "Physics") {
+      return (
+        <>
+          Your <span className="text-physics font-semibold">Physics</span> performance shows strength in <span className="text-physics font-semibold">{highest.name}</span> ({highest.score}%), 
+          but <span className="text-physics font-semibold">{lowest.name}</span> ({lowest.score}%) requires more focus. 
+          Your Physics average is {avgScore}%. Building stronger fundamentals here will improve your overall understanding.
+        </>
+      );
+    }
+
+    return (
+      <>
+        In <span className="text-english font-semibold">English</span>, <span className="text-english font-semibold">{highest.name}</span> ({highest.score}%) is your strong suit, 
+        while <span className="text-english font-semibold">{lowest.name}</span> ({lowest.score}%) needs improvement. 
+        Your English average is {avgScore}%. Regular reading and writing practice can help bridge this gap.
+      </>
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -102,7 +153,7 @@ export function TopicScoresSection() {
             </div>
             <div className="bg-accent/50 rounded-xl p-5">
               <p className="text-sm text-foreground leading-relaxed">
-                You excel in <span className="text-math font-semibold">Quadratic Equations</span> and <span className="text-physics font-semibold">Newton's Laws</span>, but <span className="text-english font-semibold">Grammar & Syntax</span> needs more attention. Focus on the lower-scoring topics to achieve a balanced performance across all subjects.
+                {getInsight()}
               </p>
             </div>
           </div>

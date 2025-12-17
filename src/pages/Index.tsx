@@ -32,7 +32,7 @@ const Index = () => {
         </ReportCard>
 
         {/* Section 3: How are we spending time together */}
-        <ReportCard title="How are we spending time together">
+        <ReportCard title="How are we spending time together?">
           <TimeSpentSection />
         </ReportCard>
 

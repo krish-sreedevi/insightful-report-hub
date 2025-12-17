@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { AISparkle } from "./AISparkle";
 import { SubjectTabs } from "./SubjectTabs";
+import { Button } from "@/components/ui/button";
 
 type Subject = "All" | "Math" | "Physics" | "English";
 
@@ -120,14 +121,25 @@ export function TimeSpentSection() {
         </div>
         
         {/* Insight Box */}
-        <div className="lg:w-72 relative">
-          <div className="absolute -top-3 -right-3 z-10">
-            <AISparkle size="md" />
+        <div className="lg:w-72 space-y-4">
+          <div className="relative">
+            <div className="absolute -top-3 -right-3 z-10">
+              <AISparkle size="md" />
+            </div>
+            <div className="bg-accent/50 rounded-xl p-5">
+              <p className="text-sm text-foreground leading-relaxed">
+                We have spent the most amount of time on <span className="text-math font-semibold">Maths</span> (10 Sessions) and the least amount of time on <span className="text-english font-semibold">English</span> (2 sessions)
+              </p>
+            </div>
           </div>
-          <div className="bg-accent/50 rounded-xl p-5">
-            <p className="text-sm text-foreground leading-relaxed">
-              We have spent the most amount of time on <span className="text-math font-semibold">Maths</span> (10 Sessions) and the least amount of time on <span className="text-english font-semibold">English</span> (2 sessions)
+          
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground mb-3">
+              You have used 15 classes over 1 month and have only 9 remaining. Let's make sure that your learning is uninterrupted.
             </p>
+            <Button className="bg-gradient-to-r from-math to-math/80 hover:from-math/90 hover:to-math/70 text-math-foreground font-semibold px-6">
+              Buy Now!
+            </Button>
           </div>
         </div>
       </div>

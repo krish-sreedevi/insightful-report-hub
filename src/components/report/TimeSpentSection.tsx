@@ -12,21 +12,50 @@ const pieData = [
   { name: "English", value: 12.5, sessions: 2, color: "hsl(var(--english))" },
 ];
 
-const classStats = [
-  { label: "Classes Used", count: 15, gradient: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)" },
-  { label: "Classes Missed", count: 9, gradient: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)" },
-  { label: "Classes Left", count: 9, gradient: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)" },
-];
+// Subject-specific class data (matching DeepDiveSection attendance)
+const subjectClassData: Record<string, { used: number; missed: number }> = {
+  Math: { used: 15, missed: 2 },      // 15/17 from DeepDive
+  Physics: { used: 12, missed: 2 },   // 12/14 from DeepDive
+  English: { used: 10, missed: 2 },   // 10/12 from DeepDive
+};
 
-const totalClasses = classStats.reduce((sum, stat) => sum + stat.count, 0);
-const usedClasses = classStats[0].count;
-const missedClasses = classStats[1].count;
-const leftClasses = classStats[2].count;
-const utilizationRate = Math.round((usedClasses / (usedClasses + missedClasses)) * 100);
+const classesLeft = 9; // Constant across all subjects
+
+const getClassStats = (subject: Subject) => {
+  const gradients = {
+    used: "linear-gradient(90deg, hsl(263 70% 55%) 0%, hsl(300 70% 55%) 50%, hsl(340 70% 55%) 100%)",
+    missed: "linear-gradient(90deg, hsl(45 100% 55%) 0%, hsl(30 100% 55%) 50%, hsl(15 100% 55%) 100%)",
+    left: "linear-gradient(90deg, hsl(142 70% 45%) 0%, hsl(180 70% 45%) 50%, hsl(200 70% 50%) 100%)",
+  };
+
+  if (subject === "All") {
+    const totalUsed = Object.values(subjectClassData).reduce((sum, d) => sum + d.used, 0);
+    const totalMissed = Object.values(subjectClassData).reduce((sum, d) => sum + d.missed, 0);
+    return [
+      { label: "Classes Used", count: totalUsed, gradient: gradients.used },
+      { label: "Classes Missed", count: totalMissed, gradient: gradients.missed },
+      { label: "Classes Left", count: classesLeft, gradient: gradients.left },
+    ];
+  }
+
+  const data = subjectClassData[subject];
+  return [
+    { label: "Classes Used", count: data.used, gradient: gradients.used },
+    { label: "Classes Missed", count: data.missed, gradient: gradients.missed },
+    { label: "Classes Left", count: classesLeft, gradient: gradients.left },
+  ];
+};
+
 const totalSessions = pieData.reduce((sum, d) => sum + d.sessions, 0);
 
 export function TimeSpentSection() {
   const [activeSubject, setActiveSubject] = useState<Subject>("All");
+
+  const classStats = getClassStats(activeSubject);
+  const totalClasses = classStats.reduce((sum, stat) => sum + stat.count, 0);
+  const usedClasses = classStats[0].count;
+  const missedClasses = classStats[1].count;
+  const utilizationRate = Math.round((usedClasses / (usedClasses + missedClasses)) * 100);
 
   const getSliceColor = (name: string) => {
     if (activeSubject === "All") {
@@ -61,7 +90,7 @@ export function TimeSpentSection() {
       return (
         <>
           <span className={`text-${activeSubject.toLowerCase()} font-semibold`}>{activeSubject}</span> is your most focused subject with {subjectData.sessions} sessions ({subjectData.value}% of total time). 
-          This strong dedication shows commitment, but ensure the {missedClasses} missed classes don't create gaps in your {activeSubject} progress.
+          You've attended {usedClasses} classes with only {missedClasses} missed. Keep up this excellent attendance!
         </>
       );
     }
@@ -70,7 +99,7 @@ export function TimeSpentSection() {
       return (
         <>
           <span className={`text-${activeSubject.toLowerCase()} font-semibold`}>{activeSubject}</span> has received the least attention with only {subjectData.sessions} sessions ({subjectData.value}% of time). 
-          Consider allocating more of your remaining {leftClasses} classes to {activeSubject} to improve balance and prevent falling behind.
+          Consider allocating more of your remaining {classesLeft} classes to {activeSubject} to improve balance.
         </>
       );
     }
@@ -78,7 +107,7 @@ export function TimeSpentSection() {
     return (
       <>
         <span className={`text-${activeSubject.toLowerCase()} font-semibold`}>{activeSubject}</span> accounts for {subjectData.value}% of your learning time ({subjectData.sessions} sessions). 
-        This is a moderate allocation. With {leftClasses} classes remaining, you could increase focus here if needed.
+        With {usedClasses} classes attended and {classesLeft} remaining, you're on track for steady progress.
       </>
     );
   };

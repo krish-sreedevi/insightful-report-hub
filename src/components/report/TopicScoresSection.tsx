@@ -12,16 +12,21 @@ interface Topic {
   score: number;
 }
 
-const highestTopics: Topic[] = [
-  { rank: 1, name: "<Topic Name>", subject: "Math", score: 90 },
-  { rank: 2, name: "<Topic Name>", subject: "Physics", score: 87 },
-  { rank: 3, name: "<Topic Name>", subject: "Math", score: 85 },
-];
-
-const lowestTopics: Topic[] = [
-  { rank: 10, name: "<Topic Name>", subject: "Math", score: 25 },
-  { rank: 11, name: "<Topic Name>", subject: "Math", score: 24 },
-  { rank: 12, name: "<Topic Name>", subject: "Math", score: 21 },
+const allTopics: Topic[] = [
+  // High scoring topics
+  { rank: 1, name: "Quadratic Equations", subject: "Math", score: 92 },
+  { rank: 2, name: "Newton's Laws of Motion", subject: "Physics", score: 90 },
+  { rank: 3, name: "Linear Algebra", subject: "Math", score: 88 },
+  { rank: 4, name: "Shakespeare Analysis", subject: "English", score: 87 },
+  { rank: 5, name: "Thermodynamics", subject: "Physics", score: 85 },
+  { rank: 6, name: "Essay Writing", subject: "English", score: 82 },
+  // Low scoring topics
+  { rank: 7, name: "Wave Mechanics", subject: "Physics", score: 45 },
+  { rank: 8, name: "Poetry Interpretation", subject: "English", score: 38 },
+  { rank: 9, name: "Calculus Integration", subject: "Math", score: 32 },
+  { rank: 10, name: "Trigonometry", subject: "Math", score: 28 },
+  { rank: 11, name: "Electromagnetic Fields", subject: "Physics", score: 25 },
+  { rank: 12, name: "Grammar & Syntax", subject: "English", score: 22 },
 ];
 
 const subjectColors: Record<string, string> = {
@@ -30,15 +35,13 @@ const subjectColors: Record<string, string> = {
   English: "bg-english text-english-foreground",
 };
 
-function TopicRow({ topic, overrideSubject }: { topic: Topic; overrideSubject?: "Math" | "Physics" | "English" }) {
-  const displaySubject = overrideSubject || topic.subject;
-  
+function TopicRow({ topic }: { topic: Topic }) {
   return (
     <div className="flex items-center gap-3 py-2">
       <span className="text-sm text-muted-foreground w-6">#{topic.rank}</span>
       <span className="text-sm text-foreground flex-1">{topic.name}</span>
-      <span className={`text-xs px-2 py-1 rounded-full font-medium ${subjectColors[displaySubject]}`}>
-        {displaySubject}
+      <span className={`text-xs px-2 py-1 rounded-full font-medium ${subjectColors[topic.subject]}`}>
+        {topic.subject}
       </span>
       <span className="text-sm font-semibold text-foreground w-12 text-right">{topic.score}%</span>
     </div>
@@ -48,7 +51,13 @@ function TopicRow({ topic, overrideSubject }: { topic: Topic; overrideSubject?: 
 export function TopicScoresSection() {
   const [activeSubject, setActiveSubject] = useState<Subject>("All");
   
-  const overrideSubject = activeSubject === "All" ? undefined : activeSubject;
+  const filteredTopics = activeSubject === "All" 
+    ? allTopics 
+    : allTopics.filter(t => t.subject === activeSubject);
+  
+  const sortedByScore = [...filteredTopics].sort((a, b) => b.score - a.score);
+  const highestTopics = sortedByScore.slice(0, 3);
+  const lowestTopics = sortedByScore.slice(-3).reverse();
 
   return (
     <div className="space-y-4">
@@ -64,7 +73,7 @@ export function TopicScoresSection() {
             <h4 className="text-sm font-semibold text-foreground underline mb-2">3 Highest Scoring Topics:</h4>
             <div className="space-y-1">
               {highestTopics.map((topic) => (
-                <TopicRow key={topic.rank} topic={topic} overrideSubject={overrideSubject} />
+                <TopicRow key={topic.name} topic={topic} />
               ))}
             </div>
           </div>
@@ -74,7 +83,7 @@ export function TopicScoresSection() {
             <h4 className="text-sm font-semibold text-foreground underline mb-2">3 Lowest Scoring Topics:</h4>
             <div className="space-y-1">
               {lowestTopics.map((topic) => (
-                <TopicRow key={topic.rank} topic={topic} overrideSubject={overrideSubject} />
+                <TopicRow key={topic.name} topic={topic} />
               ))}
             </div>
           </div>

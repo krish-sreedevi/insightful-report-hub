@@ -35,15 +35,15 @@ const subjectColors: Record<string, string> = {
   English: "bg-english text-english-foreground",
 };
 
-function TopicRow({ topic }: { topic: Topic }) {
+function TopicRow({ topic, index }: { topic: Topic; index: number }) {
   return (
-    <div className="flex items-center gap-3 py-2">
-      <span className="text-sm text-muted-foreground w-6">#{topic.rank}</span>
-      <span className="text-sm text-foreground flex-1">{topic.name}</span>
-      <span className={`text-xs px-2 py-1 rounded-full font-medium ${subjectColors[topic.subject]}`}>
+    <div className="flex items-center gap-3 py-3 px-4 rounded-lg bg-accent/30 hover:bg-accent/50 transition-colors">
+      <span className="text-sm font-bold text-muted-foreground w-6">#{index + 1}</span>
+      <span className="text-sm text-foreground flex-1 font-medium">{topic.name}</span>
+      <span className={`text-xs px-3 py-1 rounded-full font-semibold ${subjectColors[topic.subject]}`}>
         {topic.subject}
       </span>
-      <span className="text-sm font-semibold text-foreground w-12 text-right">{topic.score}%</span>
+      <span className="text-sm font-bold text-foreground w-14 text-right">{topic.score}%</span>
     </div>
   );
 }
@@ -67,23 +67,29 @@ export function TopicScoresSection() {
       <SubjectTabs activeTab={activeSubject} onTabChange={setActiveSubject} />
       
       <div className="flex flex-col lg:flex-row gap-6 mt-4">
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 space-y-6">
           {/* Highest Scoring Topics */}
-          <div>
-            <h4 className="text-sm font-semibold text-foreground underline mb-2">3 Highest Scoring Topics:</h4>
-            <div className="space-y-1">
-              {highestTopics.map((topic) => (
-                <TopicRow key={topic.name} topic={topic} />
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-5 rounded-full bg-gradient-to-b from-green-400 to-green-600" />
+              <h4 className="text-sm font-bold text-foreground">3 Highest Scoring Topics</h4>
+            </div>
+            <div className="space-y-2">
+              {highestTopics.map((topic, index) => (
+                <TopicRow key={topic.name} topic={topic} index={index} />
               ))}
             </div>
           </div>
           
           {/* Lowest Scoring Topics */}
-          <div>
-            <h4 className="text-sm font-semibold text-foreground underline mb-2">3 Lowest Scoring Topics:</h4>
-            <div className="space-y-1">
-              {lowestTopics.map((topic) => (
-                <TopicRow key={topic.name} topic={topic} />
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-5 rounded-full bg-gradient-to-b from-orange-400 to-red-500" />
+              <h4 className="text-sm font-bold text-foreground">3 Lowest Scoring Topics</h4>
+            </div>
+            <div className="space-y-2">
+              {lowestTopics.map((topic, index) => (
+                <TopicRow key={topic.name} topic={topic} index={index} />
               ))}
             </div>
           </div>

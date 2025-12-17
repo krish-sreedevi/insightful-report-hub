@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 type Subject = "All" | "Math" | "Physics" | "English";
 
 const pieData = [
-  { name: "Math", value: 62.5, color: "hsl(var(--math))" },
-  { name: "Physics", value: 25, color: "hsl(var(--physics))" },
-  { name: "English", value: 12.5, color: "hsl(var(--english))" },
+  { name: "Math", value: 62.5, sessions: 10, color: "hsl(var(--math))" },
+  { name: "Physics", value: 25, sessions: 4, color: "hsl(var(--physics))" },
+  { name: "English", value: 12.5, sessions: 2, color: "hsl(var(--english))" },
 ];
 
 const classStats = [
@@ -19,6 +19,11 @@ const classStats = [
 ];
 
 const totalClasses = classStats.reduce((sum, stat) => sum + stat.count, 0);
+const usedClasses = classStats[0].count;
+const missedClasses = classStats[1].count;
+const leftClasses = classStats[2].count;
+const utilizationRate = Math.round((usedClasses / (usedClasses + missedClasses)) * 100);
+const totalSessions = pieData.reduce((sum, d) => sum + d.sessions, 0);
 
 export function TimeSpentSection() {
   const [activeSubject, setActiveSubject] = useState<Subject>("All");
@@ -30,6 +35,52 @@ export function TimeSpentSection() {
     return name === activeSubject 
       ? pieData.find(d => d.name === name)?.color 
       : "hsl(var(--muted))";
+  };
+
+  const getInsight = () => {
+    const mostTime = pieData.reduce((a, b) => a.sessions > b.sessions ? a : b);
+    const leastTime = pieData.reduce((a, b) => a.sessions < b.sessions ? a : b);
+
+    if (activeSubject === "All") {
+      return (
+        <>
+          <span className={`text-${mostTime.name.toLowerCase()} font-semibold`}>{mostTime.name}</span> dominates with {mostTime.value}% of your time ({mostTime.sessions} sessions), 
+          while <span className={`text-${leastTime.name.toLowerCase()} font-semibold`}>{leastTime.name}</span> receives only {leastTime.value}% ({leastTime.sessions} sessions). 
+          With {missedClasses} missed classes ({100 - utilizationRate}% loss rate), consider redistributing time to balance your learning across all subjects.
+        </>
+      );
+    }
+
+    const subjectData = pieData.find(d => d.name === activeSubject);
+    if (!subjectData) return null;
+
+    const isHighest = subjectData.name === mostTime.name;
+    const isLowest = subjectData.name === leastTime.name;
+
+    if (isHighest) {
+      return (
+        <>
+          <span className={`text-${activeSubject.toLowerCase()} font-semibold`}>{activeSubject}</span> is your most focused subject with {subjectData.sessions} sessions ({subjectData.value}% of total time). 
+          This strong dedication shows commitment, but ensure the {missedClasses} missed classes don't create gaps in your {activeSubject} progress.
+        </>
+      );
+    }
+
+    if (isLowest) {
+      return (
+        <>
+          <span className={`text-${activeSubject.toLowerCase()} font-semibold`}>{activeSubject}</span> has received the least attention with only {subjectData.sessions} sessions ({subjectData.value}% of time). 
+          Consider allocating more of your remaining {leftClasses} classes to {activeSubject} to improve balance and prevent falling behind.
+        </>
+      );
+    }
+
+    return (
+      <>
+        <span className={`text-${activeSubject.toLowerCase()} font-semibold`}>{activeSubject}</span> accounts for {subjectData.value}% of your learning time ({subjectData.sessions} sessions). 
+        This is a moderate allocation. With {leftClasses} classes remaining, you could increase focus here if needed.
+      </>
+    );
   };
 
   return (
@@ -129,7 +180,7 @@ export function TimeSpentSection() {
             </div>
             <div className="bg-accent/50 rounded-xl p-5">
               <p className="text-sm text-foreground leading-relaxed">
-                We have spent the most amount of time on <span className="text-math font-semibold">Maths</span> (10 Sessions) and the least amount of time on <span className="text-english font-semibold">English</span> (2 sessions)
+                {getInsight()}
               </p>
             </div>
           </div>

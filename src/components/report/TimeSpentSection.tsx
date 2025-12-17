@@ -74,7 +74,7 @@ export function TimeSpentSection() {
       <div className="flex flex-col lg:flex-row gap-6 mt-4">
         {/* Pie Chart */}
         <div className="flex-1">
-          <div className="h-64 relative">
+          <div className="h-80 relative">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -82,7 +82,7 @@ export function TimeSpentSection() {
                   cx="50%"
                   cy="50%"
                   innerRadius={0}
-                  outerRadius={80}
+                  outerRadius={110}
                   paddingAngle={2}
                   dataKey="value"
                   label={({ name, value, cx, cy, midAngle, outerRadius }) => {

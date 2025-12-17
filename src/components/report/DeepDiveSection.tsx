@@ -6,15 +6,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { TimeRange } from "./ReportCard";
 
 type Subject = "Math" | "Physics" | "English";
 
 const subjects: Subject[] = ["Math", "Physics", "English"];
 
-const subjectLabels: Record<Subject, string> = {
-  Math: "Math 80%",
-  Physics: "Physics 87%",
-  English: "English 74%",
+const subjectLabelsByTimeRange: Record<TimeRange, Record<Subject, string>> = {
+  "Last 3 months": {
+    Math: "Math 80%",
+    Physics: "Physics 87%",
+    English: "English 74%",
+  },
+  "Last 1 month": {
+    Math: "Math 75%",
+    Physics: "Physics 82%",
+    English: "English 70%",
+  },
+  "Last 1 week": {
+    Math: "Math 68%",
+    Physics: "Physics 75%",
+    English: "English 65%",
+  },
 };
 
 const subjectStyles: Record<Subject, { active: string; inactive: string }> = {
@@ -271,8 +284,13 @@ const subjectData: Record<Subject, {
   },
 };
 
-export function DeepDiveSection() {
+interface DeepDiveSectionProps {
+  timeRange?: TimeRange;
+}
+
+export function DeepDiveSection({ timeRange = "Last 3 months" }: DeepDiveSectionProps) {
   const [activeSubject, setActiveSubject] = useState<Subject>("Math");
+  const subjectLabels = subjectLabelsByTimeRange[timeRange];
 
   return (
     <div className="space-y-6">
@@ -287,7 +305,7 @@ export function DeepDiveSection() {
             key={subject}
             onClick={() => setActiveSubject(subject)}
             className={`tab-pill ${
-              activeSubject === subject 
+              activeSubject === subject
                 ? subjectStyles[subject].active 
                 : subjectStyles[subject].inactive
             }`}
